@@ -1,38 +1,32 @@
 
 async function main() {
-    const sunsetTime = await getSunsetTime()
-    console.log(sunsetTime)
-    console.log(parseSunsetTime(sunsetTime))
-    console.log(getTime())
+    const sunsetTime = await getSunsetTime(44.571651,-123.277702 )
+    //this is the time until sunset formated in ms
+    const timeUntilSunset = msTilSunset(sunsetTime)
+    console.log(timeUntilSunset)
 }
 main()
 
-async function getSunsetTime() {
-    const resp = await fetch("https://api.sunrisesunset.io/json?lat=44.571651&lng=-123.277702&date=today")
+//this fetches an api and returns the sunset time
+async function getSunsetTime(latitude, longitude) {
+    const fetchAdress = "https://api.sunrisesunset.io/json?lat=" + latitude + "&lng=" +  longitude + "&date=today"
+    const resp = await fetch(fetchAdress)
     const respJSON = await resp.json()
-
     return respJSON.results.sunset
 }
 
-//this returns the sunset time that is passed through the function as an array [hour, minute]
-function parseSunsetTime(time){
-    let ret = []
-
-    let min = ""
-    min+=time[2]
-    min+=time[3]
-
-    ret.push(parseInt(time[0]) + 12)
-    ret.push(parseInt(min))
-
-    return ret
+//this returns miliseconds til sunset, since 12am
+function msTilSunset(time){
+    let minutes = ""
+    minutes+=time[2]
+    minutes+=time[3]
+    const milTilSun = ((parseInt(time[0]) + 12)*60 + parseInt(minutes))*60*1000
+    //gets current time in ms
+    const date = new Date()
+    const currentMS = (date.getHours()*60 + date.getMinutes())*60*1000
+    return milTilSun - currentMS
 }
 
-//this returns the current time as [hour, minute]
-function getTime(){
-    const date = new Date();
-    return [date.getHours(), date.getMinutes()];
-}
 
 //https://sunrisesunset.io/api/
 
