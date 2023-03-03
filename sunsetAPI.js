@@ -3,7 +3,13 @@ async function main() {
     const sunsetTime = await getSunsetTime(44.571651,-123.277702 )
     //this is the time until sunset formated in ms
     const timeUntilSunset = msTilSunset(sunsetTime)
-    console.log(timeUntilSunset)
+    console.log('sunset time', sunsetTime, 'timeUntilSunset', timeUntilSunset)
+
+    setTimeout(function() {
+        console.log("sunset in 10 min")
+        //this sends and email
+        //reset the function
+    }, timeUntilSunset);
 }
 main()
 
@@ -24,7 +30,7 @@ function msTilSunset(time){
     //gets current time in ms
     const date = new Date()
     const currentMS = (date.getHours()*60 + date.getMinutes())*60*1000
-    return milTilSun - currentMS
+    return milTilSun - currentMS - 600000
 }
 
 
