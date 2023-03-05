@@ -1,13 +1,14 @@
 // https://app.sendgrid.com/guide/integrate/langs/nodejs
-const dotenv = require('dotenv')
+import dotenv from 'dotenv'
+import sgMail from '@sendgrid/mail'
+
 dotenv.config()
 const apiKey = process.env.API_KEY
-const sgMail = require('@sendgrid/mail')
 
-async function sendMessage() {
+export async function sendMessage(email) {
   sgMail.setApiKey(apiKey)
   const msg = {
-      to: 'tangcharles29@gmail.com', // Change to your recipient
+      to: email, // Change to your recipient
       from: 'sunsetreminder@gmail.com', // Change to your verified sender
       subject: 'Sunset Reminder',
       text: 'Sunset Occurs in 10 minutes',

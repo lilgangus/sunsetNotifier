@@ -1,10 +1,9 @@
-const dotenv = require('dotenv')
-dotenv.config()
-const sgMail = require('@sendgrid/mail')
+import { sendMessage } from "./message.js"
 
-runProgramEveryDay()
+runProgram()
 
-function runProgramEveryDay(){
+function runProgram(){
+    sendSunsetNotification()
     setInterval(() => {
         sendSunsetNotification()
     },86400000)
@@ -39,25 +38,6 @@ function msTilSunset(time){
     const date = new Date()
     const currentMS = (date.getHours()*60 + date.getMinutes())*60*1000
     return milTilSun - currentMS - 600000
-}
-
-async function sendMessage(email) {
-  sgMail.setApiKey(process.env.API_KEY)
-  const msg = {
-      to: email, // Change to your recipient
-      from: 'sunsetreminder@gmail.com', // Change to your verified sender
-      subject: 'Sunset Reminder',
-      text: 'Sunset Occurs in 10 minutes',
-      html: '<h1>Sunset Occurs in 10 minutes</h1>',
-  }
-  sgMail.send(msg)
-    .then(() => {
-      console.log('Email sent')
-    })
-    .catch((error) => {
-      console.error(error)
-    })
-    
 }
 
 //https://sunrisesunset.io/api/
