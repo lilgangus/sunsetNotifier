@@ -1,6 +1,6 @@
 import { sendMessage } from "./message.js"
 
-runProgram()
+// runProgram()
 
 function runProgram(){
     sendSunsetNotification()
