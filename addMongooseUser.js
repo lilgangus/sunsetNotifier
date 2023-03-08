@@ -7,10 +7,12 @@ dotenv.config()
 mongoose.connect(process.env.MONGOOSE_URL, {useNewUrlParser: true, useUnifiedTopology: true})
 
 const user = new User({
-    name: 'john',
-    email: 'johndoe@gmail.com',
+    name: 'Charles',
+    email: 'pokemantang@gmail.com',
     timezone: 'PST',
-    registered: true
+    registered: true,
+    latitude: 44.571651,
+    longitude: -123.277702
 })
 
 user.save()

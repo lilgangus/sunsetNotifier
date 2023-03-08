@@ -1,20 +1,19 @@
 import { sendMessage } from "./messaging.js"
 
-runNotifier('tangcharles29@gmail.com')
 
-export function runNotifier(email){
-    sendSunsetNotification(email)
-    setInterval(() => {
-        sendSunsetNotification(email)
-    },86400000)
-}
+// export default function runNotifier(email){
+//     sendSunsetNotification(email)
+//     setInterval(() => {
+//         sendSunsetNotification(email)
+//     },86400000)
+// }
 
 //this sends a notification 10 minutes before sunset
-async function sendSunsetNotification(email) {
-    const sunsetTime = await getSunsetTime(44.571651,-123.277702 )
+export async function sendSunsetNotification(email, lat, long) {
+    const sunsetTime = await getSunsetTime(lat, long)
+    // 44.571651,-123.277702
     //this is the time until sunset formated in ms
     const timeUntilSunset = msTilSunset(sunsetTime)
-
     setTimeout(() => {
         sendMessage(email)
     }, timeUntilSunset);

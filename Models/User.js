@@ -7,7 +7,8 @@ const UserSchema = new mongoose.Schema({
     },
     email: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
     timezone: {
         type: String,
@@ -15,6 +16,12 @@ const UserSchema = new mongoose.Schema({
     },
     registered: {
         type: Boolean
+    },
+    latitude: {
+        type: Number
+    },
+    longitude: {
+        type: Number
     }
 
 })
