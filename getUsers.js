@@ -1,4 +1,3 @@
-//we grab all the users and return their emails as an array
 import mongoose from "mongoose"
 import User from "./Models/User.js"
 import dotenv from "dotenv"
@@ -10,14 +9,15 @@ export async function getUser(){
     const user = await User.find()
     const users = []
     user.forEach(user => {
-        users.push({
-            email: user.email,
-            timezone: user.timezone,
-            latitude: user.latitude,
-            longitude: user.longitude
-        })
+        if(user.registered) {
+            users.push({
+                email: user.email,
+                timezone: user.timezone,
+                latitude: user.latitude,
+                longitude: user.longitude
+            }) 
+        }
     })
     return users
 }
 
-getUser()
